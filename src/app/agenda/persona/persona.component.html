@@ -1,0 +1,207 @@
+<form
+  name="formulario"
+  class="form"
+  [formGroup]="perfilForm"
+  #formtemp="ngForm"
+  (ngSubmit)="onSubmit(formtemp)"
+>
+  <mat-grid-list cols="1" rowHeight="300px">
+    <mat-grid-tile>
+      <div class="datos">
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+
+          <input
+            matInput
+            type="text"
+            minlength="3"
+            placeholder="Nombre"
+            name="contact.nombre"
+            formControlName="nombre"
+            [(ngModel)]="contact.nombre"
+            required
+          />
+          <mat-error *ngIf="nombre.touched && nombre.invalid">
+            <div *ngIf="nombre.errors?.required">Campo requerido</div>
+            <div *ngIf="nombre.errors?.minlength">
+              Debe tener al menos 3 caracteres
+            </div>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Apellidos</mat-label>
+          <input
+            matInput
+            required
+            type="text"
+            minlength="3"
+            placeholder="Apellidos"
+            name="contact.apellidos"
+            formControlName="apellidos"
+            [(ngModel)]="contact.apellidos"
+          />
+          <mat-error *ngIf="apellidos.touched && apellidos.invalid">
+            <div *ngIf="apellidos.errors?.required">Campo requerido</div>
+            <div *ngIf="apellidos.errors?.minlength">
+              Debe tener al menos 3 caracteres
+            </div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Edad</mat-label>
+          <input
+            matInput
+            required
+            type="number"
+            placeholder="Edad"
+            min="0"
+            max="125"
+            name="contact.edad"
+            formControlName="edad"
+            [(ngModel)]="contact.edad"
+          />
+          <mat-error *ngIf="edad.touched && edad.invalid">
+            <div *ngIf="edad.errors?.required">Campo requerido</div>
+            <div *ngIf="edad.errors?.min">El valor debe ser mayor a 0</div>
+            <div *ngIf="edad.errors?.max">El valor debe ser menor a 125</div>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>DNI</mat-label>
+          <input
+            matInput
+            required
+            type="text"
+            placeholder="NIF (8 números y 1 letra)"
+            pattern="[0-9]{8}[A-Za-z]{1}"
+            name="contact.dni"
+            formControlName="dni"
+            [(ngModel)]="contact.dni"
+          />
+          <mat-error *ngIf="dni.touched && dni.invalid">
+            <div *ngIf="dni.errors?.required">Campo requerido</div>
+            <div *ngIf="dni.errors?.minlength">
+              Debe tener 8 numeros y una letra
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div class="datos">
+        <div class="seleccion">
+          <mat-radio-group
+            required
+            aria-label="Seleccione una opción"
+            name="contact.sexo"
+            formControlName="sexo"
+            [(ngModel)]="contact.sexo"
+          >
+            Sexo: <br />
+            <mat-radio-button value="Hombre">Hombre</mat-radio-button><br />
+            <mat-radio-button value="Mujer">Mujer</mat-radio-button><br />
+            <mat-radio-button value="Otro">Otro</mat-radio-button><br />
+            <mat-radio-button value="No Especificado"
+              >No Especificado</mat-radio-button
+            >
+            <mat-error *ngIf="sexo.errors?.required"
+              >Campo requerido
+            </mat-error>
+          </mat-radio-group>
+        </div>
+        <mat-form-field>
+          <mat-label>Color Favorito</mat-label>
+          <input
+            matInput
+            type="text"
+            minlength="3"
+            placeholder="colorFavorito"
+            name="contact.colorFavorito"
+            formControlName="colorFavorito"
+            [(ngModel)]="contact.colorFavorito"
+            required
+          />
+          <mat-error *ngIf="colorFavorito.touched && colorFavorito.invalid">
+            <div *ngIf="colorFavorito.errors?.required">Campo requerido</div>
+            <div *ngIf="colorFavorito.errors?.minlength">
+              Debe tener al menos 3 caracteres
+            </div>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Cumpleaños</mat-label>
+          <input
+            matInput
+            required
+            [matDatepicker]="picker"
+            placeholder="Fecha Cumpleaños"
+            name="contact.cumpleanios"
+            formControlName="cumpleanios"
+            [(ngModel)]="contact.cumpleanios"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="cumpleanios.touched && cumpleanios.invalid">
+            <div *ngIf="cumpleanios.errors?.required">Campo requerido</div>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="boton">
+          <button
+            mat-raised-button
+            type="submit"
+            [disabled]="!perfilForm.valid"
+          >
+            Enviar Datos
+          </button>
+        </div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
+<mat-card class="contacto">
+  <h2>Lista de contactos</h2>
+
+  <mat-list>
+    <mat-list-item *ngFor="let cont of contacts; let i = index">
+      <p class="h3">
+        Nombre y Apellidos: &nbsp;{{ cont.nombre }} {{ cont.apellidos }}
+      </p>
+      &nbsp;
+
+      <p class="p">Edad: &nbsp;{{ cont.edad }}</p>
+      &nbsp;
+
+      <p class="p">DNI: &nbsp;{{ cont.dni }}</p>
+      &nbsp;
+
+      <p class="p">Cumpleaños: &nbsp;{{ cont.cumpleanios }}</p>
+      &nbsp;
+
+      <p class="p">Color Favorito:&nbsp; {{ cont.colorFavorito }}</p>
+      &nbsp;
+
+      <p class="p">Sexo: {{ cont.sexo }}</p>
+      <br />
+
+      <button
+        class="button"
+        mat-flat-button
+        color="primary"
+        (click)="update(i)"
+      >
+        Actualizar
+      </button>
+      <button class="button" mat-flat-button color="warn" (click)="delete(i)">
+        Borrar
+      </button>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+</mat-card>

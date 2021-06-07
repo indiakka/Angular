@@ -1,0 +1,36 @@
+.form {
+  text-align: auto;
+  background: lightsteelblue;
+}
+
+.contacto {
+  background: lightgray;
+
+  text-align: center;
+}
+.datos {
+  background: lightskyblue;
+  border-style: dotted;
+}
+.boton {
+  background: gray;
+  text-align: center;
+  border-style: dotted;
+}
+.borrar {
+  background: lightgreen;
+}
+.seleccion {
+  background: lightskyblue;
+  border-style: dotted;
+}
+
+.h3 {
+  border-style: double;
+  font-weight: bold;
+  text-align: center;
+}
+.p {
+  border-style: solid;
+  text-align: center;
+}
