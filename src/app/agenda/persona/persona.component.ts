@@ -89,7 +89,7 @@ export class PersonaComponent implements OnInit {
       )
       .subscribe((res) => {
         console.log(res);
-        this.contacts.splice(delPosition, 1);
+        this.list();
       });
   }
 
