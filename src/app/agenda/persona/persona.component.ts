@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {
   FormBuilder,
   FormGroup,
@@ -46,10 +46,7 @@ export class PersonaComponent implements OnInit {
       colorFavorito: ['', [Validators.required, Validators.minLength(3)]],
       sexo: ['', [Validators.required]],
     });
-    this.httpClient.get('http://localhost:3000/personas').subscribe((res) => {
-      // this.contact = res;
-      console.log(this.contact);
-    });
+    this.list();
   }
 
   get nombre() {
@@ -105,10 +102,13 @@ export class PersonaComponent implements OnInit {
       .subscribe((res) => console.log(res));*/
   }
 
-  edit(form: FormGroupDirective) {
+  list() {
     this.httpClient
-      .put('http://localhost:3000/personas/${id}', this.contact)
-      .subscribe((res) => console.log(res));
+      .get('http://localhost:3000/personas')
+      .subscribe( ( res ) =>
+      {
+        this.contacts = res as Persona[];
+      } );
   }
 
   onSubmit(form: FormGroupDirective) {
