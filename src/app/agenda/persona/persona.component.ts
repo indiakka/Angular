@@ -103,12 +103,9 @@ export class PersonaComponent implements OnInit {
   }
 
   list() {
-    this.httpClient
-      .get('http://localhost:3000/personas')
-      .subscribe( ( res ) =>
-      {
-        this.contacts = res as Persona[];
-      } );
+    this.httpClient.get('http://localhost:3000/personas').subscribe((res) => {
+      this.contacts = res as Persona[];
+    });
   }
 
   onSubmit(form: FormGroupDirective) {
